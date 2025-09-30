@@ -56,5 +56,23 @@ type {{$ServiceName}} interface {
 	{{template "FunctionSignature" .}}
 	{{- end}}
 }
+
+var {{$ServiceName}}Router = []struct {
+	Action   string
+	Method   string
+	Path     string
+	Request  interface{}
+	Response interface{}
+}{
+	{{- range .Functions}}
+	{{- $Action := .Name }}
+	{{- $Meta := index .Annotations 0 }}
+	{{- $Method := $Meta.Key }}
+	{{- $Path := (index $Meta.Values 0) }}
+	{{- $Request := (index .Arguments 0).GoTypeName.Deref }}
+	{{- $Response := .ResponseGoTypeName.Deref }}
+	{Action: "{{$Action}}", Method: "{{$Method}}", Path: "{{$Path}}", Request: {{$Request}}{}, Response: {{$Response}}{}},
+	{{- end}}
+}
 {{- end}}{{/* define "ThriftService" */}}
 `
