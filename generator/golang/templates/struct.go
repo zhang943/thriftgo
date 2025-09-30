@@ -512,6 +512,7 @@ func (p *{{$TypeName}}) {{$SetterName}}(x interface{}) {
     p.{{$FieldName}} = x.({{$FieldTypeName}})
 }
 {{- else}}
+
 func (p *{{$TypeName}}) {{$SetterName}}(val {{$FieldTypeName}}) {
 	p.{{$FieldName}} = val
 }
