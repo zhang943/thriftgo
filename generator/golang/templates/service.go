@@ -57,7 +57,7 @@ type {{$ServiceName}} interface {
 	{{- end}}
 }
 
-var {{$ServiceName}}Router = []struct {
+var {{$ServiceName}}Routes = []struct {
 	Action   string
 	Method   string
 	Path     string
