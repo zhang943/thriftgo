@@ -26,6 +26,8 @@ type {{$NewTypeName}} = {{$OldTypeName}}
 type {{$NewTypeName}} {{$OldTypeName}}
 {{- end}}
 
+func {{$NewTypeName}}Ptr(v {{$NewTypeName}}) *{{$NewTypeName}} { return &v }
+
 {{InsertionPoint "typedef" $NewTypeName.String}}
 
 {{if .Type.Category.IsStructLike}} 
