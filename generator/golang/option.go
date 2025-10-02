@@ -29,6 +29,7 @@ type Features struct {
 	UnmarshalEnum               bool `enum_unmarshal:"Generate UnmarshalText for enum values"`
 	GenerateSetter              bool `gen_setter:"Generate Set* methods for fields"`
 	GenDatabaseTag              bool `gen_db_tag:"Generate 'db:$field' tag"`
+	GenBSONTag                  bool `gen_bson_tag:"Generate 'bson:$field' tag"`
 	GenOmitEmptyTag             bool `omitempty_for_optional:"Generate 'omitempty' tags for optional fields."`
 	TypedefAsTypeAlias          bool `use_type_alias:"Generate type alias for typedef instead of type define."`
 	ValidateSet                 bool `validate_set:"Generate codes to validate the uniqueness of set elements."`

@@ -313,8 +313,8 @@ func (cu *CodeUtils) genFieldTags(f *Field, insertPoint string, extend []string)
 
 	// Build thrift tag components
 	parts := make([]string, 0, 4)
-	parts = append(parts, f.Name)                                 // Field name
-	parts = append(parts, strconv.Itoa(int(f.ID)))                // Field ID
+	parts = append(parts, f.Name)                                   // Field name
+	parts = append(parts, strconv.Itoa(int(f.ID)))                  // Field ID
 	parts = append(parts, strings.ToLower(f.Requiredness.String())) // Requiredness
 
 	if cu.canIgnoreGenFrugalTagType(f) {
@@ -343,6 +343,13 @@ func (cu *CodeUtils) genFieldTags(f *Field, insertPoint string, extend []string)
 	} else {
 		if cu.Features().GenDatabaseTag {
 			tags = append(tags, fmt.Sprintf(`db:"%s"`, f.Name))
+		}
+		if cu.Features().GenBSONTag {
+			if f.Requiredness.IsOptional() && cu.Features().GenOmitEmptyTag {
+				tags = append(tags, fmt.Sprintf(`bson:"%s,omitempty"`, f.Name))
+			} else {
+				tags = append(tags, fmt.Sprintf(`bson:"%s"`, f.Name))
+			}
 		}
 	}
 
